@@ -1,81 +1,76 @@
-const nomeAluno = document.querySelector('#nome');
-const turmaAluno = document.querySelector('#turma');
+const nome = document.querySelector('#nome'); // Captura os elementos HTML
+const turma = document.querySelector('#turma');
 const notaUm = document.querySelector('#nota1');
 const notaDois = document.querySelector('#nota2');
 const notaTres = document.querySelector('#nota3');
 const btnAdicionar = document.querySelector('#addaluno');
 const btnAvaliar = document.querySelector('#avaliarBtn');
 const resultado = document.querySelector('#resultado');
+const mensagem = document.querySelector('p');
+const numMedia = document.querySelector('#info-media');
+const mediaText = document.querySelector('#texto-media')
+let infoAlunos = [];
 
-function avaliar() {
-    let infoAlunos = [];
+function avaliar() { // Função Principal
     let aluno;
 
-    const adicionarAlunos = (nome, turma, nota1, nota2, nota3) => {
-        btnAdicionar.addEventListener('click', e => {
-            e.preventDefault();
-            aluno = {
-                nome: nome.value,
-                turma: turma.value,
-                notaUm: Number(nota1.value),
-                notaDois: Number(nota2.value),
-                notaTres: Number(nota3.value)
-            }
-            infoAlunos.push(aluno);
-
-
-            const p = document.querySelector('p');
-            p.innerHTML = `${nome.value} <strong>Cadastrado</strong>`;
-
-            const addClass = p.classList.add('cadastrado');
-            const popUp = setInterval(addClass, 1000);
-            setTimeout(() => {
-                clearInterval(popUp);
-                p.innerHTML = '';
-                p.classList.remove('cadastrado');
-            }, 3000)
-
-
-            console.log(infoAlunos);
-            limparForm();
-        });
-
-        const limparForm = () => {
-            nome.value = '';
-            turma.value = '';
-            nota1.value = '';
-            nota2.value = '';
-            nota3.value = '';
+    btnAdicionar.addEventListener('click', e => { // Captura clique do botão adicionar aluno
+        e.preventDefault();
+        aluno = { // Armazena os dados do aluno em objeto
+            nome: nome.value,
+            turma: turma.value,
+            notaUm: Number(notaUm.value),
+            notaDois: Number(notaDois.value),
+            notaTres: Number(notaTres.value)
         }
+        infoAlunos.push(aluno); // Armazena o objeto dentro de um array
+
+        mensagem.innerHTML = `${nome.value} <strong>Cadastrado(a)</strong>`;
+        mensagem.classList.add('cadastrado'); 
+
+        setTimeout(() => { // Exibe uma mensagem de pop up por 2 segundos
+            mensagem.innerHTML = '';
+            mensagem.classList.remove('cadastrado');
+        }, 2000)
+
+
+        limparForm(); // Após a confirmação do aluno limpa o forumulário 
+        console.log(infoAlunos);
+    });
+
+    const limparForm = function () { 
+        nome.value = '';
+        turma.value = '';
+        nota1.value = '';
+        nota2.value = '';
+        nota3.value = '';
     }
-    adicionarAlunos(nomeAluno, turmaAluno, notaUm, notaDois, notaTres);
+    const mediaGeral = []
 
-    const avaliacaoAlunos = () => {
-        const calculoMedia = (infoAlunos) => {
-            infoAlunos.forEach(aluno => {
-                const media = (aluno.notaUm + aluno.notaDois + aluno.notaTres) / 3;
+    btnAvaliar.addEventListener('click', () => { // Captura clique do botão avaliar
+        resultado.innerHTML = '';
+        mediaGeral.length = 0;
 
-                const textoResultado = document.createElement('p');
-                textoResultado.setAttribute('class', 'paragrafo');
-                textoResultado.innerHTML += `${aluno.nome} (${aluno.turma}) teve média ${media.toFixed(1)} `;
-                resultado.appendChild(textoResultado);
+        infoAlunos.forEach(aluno => { // Percorre o array inteiro, adicionando média do aluno ao array e o coloca em resultados
+            media = (aluno.notaUm + aluno.notaDois + aluno.notaTres) / 3;
+            mediaGeral.push(media);
 
-                if (media >= 7) {
-                    textoResultado.innerText += ` - APROVADO`;
-                    textoResultado.setAttribute('class', 'aprovado');
-                }
-                else {
-                    textoResultado.innerText += ` - REPROVADO`;
-                    textoResultado.setAttribute('class', 'reprovado');
-                }
-            })
-        };
+            const textoResultado = document.createElement('p');
+            textoResultado.classList.add('paragrafo');
 
-        btnAvaliar.addEventListener('click', () => {
-            calculoMedia(infoAlunos);
+            if (media >= Number(numMedia.value)) {
+                textoResultado.innerHTML = `${aluno.nome} (${aluno.turma}) teve média ${media.toFixed(1)} - APROVADO`;
+                textoResultado.classList.add('aprovado');
+            } else {
+                textoResultado.innerHTML = `${aluno.nome} (${aluno.turma}) teve média ${media.toFixed(1)} - REPROVADO`;
+                textoResultado.classList.add('reprovado');
+            }
+            resultado.appendChild(textoResultado);
         });
-    }
-    avaliacaoAlunos();
+        const mediaTotal = mediaGeral.reduce((total, valor, indice) => { // Captura a média total dos alunos
+            return total = (total + valor) / (indice + 1);
+        });
+        mediaText.innerHTML = `${mediaTotal.toFixed(1)}`; // Mostra uma mensagem de média geral da turma no site
+    });
 }
-
-avaliar();
+avaliar(); // Executa o programa
