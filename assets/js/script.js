@@ -70,7 +70,7 @@ function avaliar() { // Função Principal
         const mediaTotal = mediaGeral.reduce((total, valor, indice) => { // Captura a média total dos alunos
             return total = (total + valor) / (indice + 1);
         });
-        mediaText.innerHTML = `${mediaTotal.toFixed(1)}`; // Mostra uma mensagem de média geral da turma no site
+        mediaText.innerHTML= `Média da turma: ${mediaTotal.toFixed(1)}`; // Mostra uma mensagem de média geral da turma no site
     });
 }
 avaliar(); // Executa o programa
