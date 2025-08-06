@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Avaliação de Alunos</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>Avaliação de Alunos</h1>
+
+        <form id="formAluno">
+            <input type="text" id="nome" placeholder="Nome do aluno" required>
+            <input type="text" id="turma" placeholder="Turma" required>
+            <input type="number" id="nota1" placeholder="Nota 1" min="0" max="10" required>
+            <input type="number" id="nota2" placeholder="Nota 2" min="0" max="10" required>
+            <input type="number" id="nota3" placeholder="Nota 3" min="0" max="10" required>
+            <button id="addaluno">Adicionar Aluno</button>
+        </form>
+
+        <div class="avaliacao">
+            <button id="avaliarBtn">Avaliar Alunos</button>
+            <p></p>
+        </div>
+
+        <h2>Resultado</h2>
+        <div id="resultado"></div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>
