@@ -43,13 +43,9 @@ Um mini sistema de avaliação de alunos com cadastro via formulário e análise
 
 ## 💡 Possíveis melhorias futuras
 
-⏳ Adicionar validação de dados mais robusta
-
 ⏳ Editar ou excluir alunos
 
 ⏳ Remover o pior aluno da turma com splice()
-
-⏳Listar aprovados em letras maiúsculas com map()
 
 ⏳Filtrar com filter()
 
